@@ -26,11 +26,11 @@ class StoreVideoRequest extends FormRequest
     {
         return [
             'name' => ['required'],
-            'length' => ['required', 'integer'],
             'slug' => ['required', 'unique:videos,slug', 'alpha_dash'],
-            'url' => ['required', 'url'],
-            'thumbnail' => ['required', 'url'],
-            'category_id' => ['required', 'exists:categories,id']
+            'category_id' => ['required', 'exists:categories,id'],
+            'file' => ['required', 'file' ,'mimetypes:video/mp4' ],
+
+
         ];
     }
     protected function prepareForValidation()
@@ -39,4 +39,5 @@ class StoreVideoRequest extends FormRequest
             'slug' => Str::slug($this->slug),
         ]);
     }
+
 }

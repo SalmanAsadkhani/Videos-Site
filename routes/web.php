@@ -8,6 +8,7 @@ use App\Http\Controllers\IndexController;
 use App\Http\Controllers\VideoController;
 use App\Http\Controllers\CategoryVideoController;
 use  \App\Models\User;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use \App\Http\Controllers\DisLikeController;
 /*
@@ -32,6 +33,7 @@ Route::get('/videos/create', [VideoController::class, 'create'])
 
 Route::post('/videos', [VideoController::class, 'store'])
     ->name('videos.store');
+
 
 Route::get('/videos/{video}', [VideoController::class, 'show'])
 
@@ -61,6 +63,8 @@ Route::get('{likeable_type}/{likeable_id}/like' , [LikeController::class, 'store
 
 Route::get('{likeable_type}/{likeable_id}/dislike' , [DisLikeController::class, 'store'])
     ->name('dislike.store');
+
+
 
 
 require __DIR__ . '/auth.php';

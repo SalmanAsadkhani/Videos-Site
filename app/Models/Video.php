@@ -7,6 +7,7 @@ use Hekmatinasser\Verta\Verta;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use \App\Models\Comment;
+use Illuminate\Support\Facades\Storage;
 
 class Video extends Model
 {
@@ -19,7 +20,7 @@ class Video extends Model
         'name',
         'description',
         'length',
-        'url',
+        'path',
         'slug',
         'thumbnail',
         'category_id'
@@ -32,7 +33,7 @@ class Video extends Model
 
     public function getLengthInHumanAttribute()
     {
-        return gmdate("i:s", $this->value);
+        return gmdate("i:s", $this->length);
     }
 
     public function getCreatedAtAttribute($value)
@@ -73,5 +74,16 @@ class Video extends Model
     {
         return $this->hasMany(Comment::class)->orderBy('created_at', 'desc');
     }
+
+    public function getVideoUrlAttribute()
+    {
+        return   Storage::url($this->path);
+    }
+
+    public function getVideoThumbnailAttribute()
+    {
+        return   Storage::url($this->thumbnail);
+    }
+
 
 }
